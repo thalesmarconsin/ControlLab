@@ -1,0 +1,16 @@
+<div class="toast-wrap">
+  <div
+    class="toast"
+    *ngFor="let t of (notify.toasts$ | async)"
+    [class.success]="t.type === 'success'"
+    [class.error]="t.type === 'error'"
+    [class.info]="t.type === 'info'"
+  >
+    <div class="toast-head">
+      <strong *ngIf="t.title">{{ t.title }}</strong>
+      <button type="button" (click)="dismiss(t.id)">×</button>
+    </div>
+
+    <div class="toast-msg">{{ t.message }}</div>
+  </div>
+</div>

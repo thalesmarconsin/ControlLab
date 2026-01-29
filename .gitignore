@@ -1,0 +1,17 @@
+# Node / Angular
+lab-web/node_modules
+lab-web/dist
+lab-web/.angular
+lab-web/.vscode
+
+# Laravel / PHP
+lab-api/vendor
+lab-api/.env
+lab-api/storage/*.key
+lab-api/storage/logs
+lab-api/storage/framework
+lab-api/bootstrap/cache
+
+# Geral
+.env
+.DS_Store

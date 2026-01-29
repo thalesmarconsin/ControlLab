@@ -1,0 +1,42 @@
+<div class="page">
+  <div class="card">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1 class="h1">Criar conta</h1>
+        <p class="sub">Cadastre-se e depois faça login</p>
+      </div>
+    </div>
+
+    <form class="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label>Nome</label>
+        <input name="name" [(ngModel)]="name" placeholder="Seu nome" />
+      </div>
+
+      <div class="field">
+        <label>Email</label>
+        <input name="email" [(ngModel)]="email" placeholder="voce@exemplo.com" />
+      </div>
+
+      <div class="field">
+        <label>Senha</label>
+        <input name="password" type="password" [(ngModel)]="password" placeholder="mínimo 6 caracteres" />
+      </div>
+
+      <div class="field">
+        <label>Confirmar senha</label>
+        <input name="confirmPassword" type="password" [(ngModel)]="confirmPassword" placeholder="repita a senha" />
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" [disabled]="loading">
+          {{ loading ? 'Cadastrando...' : 'Cadastrar' }}
+        </button>
+        <a class="link" routerLink="/login">Voltar para login</a>
+      </div>
+
+      <div class="alert" *ngIf="error">{{ error }}</div>
+    </form>
+  </div>
+</div>

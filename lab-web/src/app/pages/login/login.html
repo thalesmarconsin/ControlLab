@@ -1,0 +1,32 @@
+<div class="page">
+  <div class="card">
+    <div class="brand">
+      <div class="logo"></div>
+      <div>
+        <h1 class="h1">Login</h1>
+        <p class="sub">Entre para acessar o sistema</p>
+      </div>
+    </div>
+
+    <form class="form" (ngSubmit)="submit()">
+      <div class="field">
+        <label>Email</label>
+        <input name="email" [(ngModel)]="email" placeholder="voce@exemplo.com" />
+      </div>
+
+      <div class="field">
+        <label>Senha</label>
+        <input name="password" type="password" [(ngModel)]="password" placeholder="••••••••" />
+      </div>
+
+      <div class="actions">
+        <button class="btn btn-primary" type="submit" [disabled]="loading">
+          {{ loading ? 'Entrando...' : 'Entrar' }}
+        </button>
+        <a class="link" routerLink="/register">Criar conta</a>
+      </div>
+
+      <div class="alert" *ngIf="error">{{ error }}</div>
+    </form>
+  </div>
+</div>
