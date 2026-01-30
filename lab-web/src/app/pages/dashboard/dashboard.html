@@ -1,24 +1,99 @@
-<div class="page">
-  <div class="card">
-    <div class="brand">
-      <div class="logo"></div>
-      <div>
-        <h1 class="h1">Dashboard</h1>
-        <p class="sub">Você está logado 🎉</p>
-      </div>
+<div class="page" *ngIf="vm$ | async as vm">
+  <header class="page-header">
+    <div class="title">
+      <h1>Dashboard</h1>
+      <p>Controle do laboratório de informática</p>
     </div>
 
     <div class="actions">
-      <button class="btn btn-primary" (click)="loadMe()">Testar /me</button>
-      <button class="btn btn-ghost" (click)="logout()">Sair</button>
+      <button class="btn primary">+ Abrir chamado</button>
+      <button class="btn">+ Nova reserva</button>
+      <button class="btn">+ Cadastrar equipamento</button>
+    </div>
+  </header>
+
+  <section class="kpis">
+    <article class="kpi" *ngFor="let k of vm.kpis">
+      <div class="kpi-top">
+        <span class="kpi-label">{{ k.label }}</span>
+        <span class="pill" [class]="k.tone || 'muted'">{{ k.hint }}</span>
+      </div>
+      <div class="kpi-value">{{ k.value }}</div>
+    </article>
+  </section>
+
+  <section class="alerts">
+    <div class="panel">
+      <div class="panel-title">Alertas</div>
+
+      <div class="alert-list">
+        <div class="alert" *ngFor="let a of vm.alerts" [class]="a.tone">
+          <strong>{{ a.title }}</strong>
+          <span>{{ a.msg }}</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="grid-2">
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Chamados recentes</div>
+          <div class="panel-sub">Suporte e manutenção</div>
+        </div>
+      </div>
+
+      <div class="table">
+        <div class="t-row t-head">
+          <div>ID</div>
+          <div>Título</div>
+          <div>Lab</div>
+          <div>Prioridade</div>
+          <div>Status</div>
+          <div>Resp.</div>
+          <div>Atualizado</div>
+        </div>
+
+        <div class="t-row" *ngFor="let t of vm.tickets">
+          <div class="mono">{{ t.id }}</div>
+          <div class="truncate">{{ t.title }}</div>
+          <div class="muted">{{ t.lab }}</div>
+          <div><span class="badge" [class]="badgeTonePriority(t.priority)">{{ t.priority }}</span></div>
+          <div><span class="badge" [class]="badgeToneTicketStatus(t.status)">{{ t.status }}</span></div>
+          <div class="muted">{{ t.assignedTo || '—' }}</div>
+          <div class="muted">{{ t.updatedAt }}</div>
+        </div>
+      </div>
     </div>
 
-    @if (user) {
-      <pre>{{ user | json }}</pre>
-    }
+    <div class="panel">
+      <div class="panel-head">
+        <div>
+          <div class="panel-title">Reservas de hoje</div>
+          <div class="panel-sub">Aulas e uso do laboratório</div>
+        </div>
+      </div>
 
-    @if (error) {
-      <div class="alert">{{ error }}</div>
-    }
-  </div>
+      <div class="table compact">
+        <div class="t-row t-head">
+          <div>ID</div>
+          <div>Lab</div>
+          <div>Disciplina</div>
+          <div>Professor</div>
+          <div>Horário</div>
+          <div>Status</div>
+        </div>
+
+        <div class="t-row" *ngFor="let r of vm.reservations">
+          <div class="mono">{{ r.id }}</div>
+          <div class="muted">{{ r.lab }}</div>
+          <div class="truncate">{{ r.course }}</div>
+          <div class="muted truncate">{{ r.teacher }}</div>
+          <div>{{ r.time }}</div>
+          <div><span class="badge" [class]="badgeToneReservation(r.status)">{{ r.status }}</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 </div>

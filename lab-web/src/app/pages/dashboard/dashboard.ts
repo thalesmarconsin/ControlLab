@@ -1,29 +1,35 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { AuthService } from '../../core/auth/auth';
+import { CommonModule, AsyncPipe } from '@angular/common';
+import { DashboardService } from '../../core/dashboard/dashboard.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, AsyncPipe],
   templateUrl: './dashboard.html',
+  styleUrls: ['./dashboard.scss'],
 })
 export class DashboardComponent {
-  user: any = null;
-  error = '';
+  vm$: Observable<any>;
 
-  constructor(private auth: AuthService) {}
-
-  loadMe() {
-    this.error = '';
-    this.auth.me().subscribe({
-      next: (u) => (this.user = u),
-      error: (err) => (this.error = err?.error?.message ?? 'Erro ao buscar /me'),
-    });
+  constructor(private dashboard: DashboardService) {
+    this.vm$ = this.dashboard.getDashboard();
   }
 
-  logout() {
-    this.auth.logout();
-    this.user = null;
+
+  badgeTonePriority(p: 'Baixa'|'Média'|'Alta') {
+    return p === 'Alta' ? 'bad' : p === 'Média' ? 'warn' : 'muted';
+  }
+  badgeToneTicketStatus(s: 'Aberto'|'Em andamento'|'Aguardando'|'Resolvido') {
+    if (s === 'Resolvido') return 'good';
+    if (s === 'Em andamento') return 'brand';
+    if (s === 'Aguardando') return 'warn';
+    return 'bad';
+  }
+  badgeToneReservation(s: 'Confirmada'|'Pendente'|'Cancelada') {
+    if (s === 'Confirmada') return 'good';
+    if (s === 'Pendente') return 'warn';
+    return 'bad';
   }
 }

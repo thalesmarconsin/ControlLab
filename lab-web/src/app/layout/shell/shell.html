@@ -1,0 +1,54 @@
+<div class="app" [ngClass]="{ collapsed: collapsed }">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo"></div>
+      <div class="title">
+        <div class="name">Hermes Lab</div>
+        <div class="sub">Gestão de Laboratório</div>
+      </div>
+    </div>
+
+    <nav class="nav">
+      <a routerLink="/dashboard" routerLinkActive="active" class="nav-item">
+        <span class="dot"></span> Dashboard
+      </a>
+      <a routerLink="/patients" routerLinkActive="active" class="nav-item">
+        <span class="dot"></span> Pacientes
+      </a>
+      <a routerLink="/exams" routerLinkActive="active" class="nav-item">
+        <span class="dot"></span> Exames
+      </a>
+      <a routerLink="/samples" routerLinkActive="active" class="nav-item">
+        <span class="dot"></span> Amostras
+      </a>
+      <a routerLink="/reports" routerLinkActive="active" class="nav-item">
+        <span class="dot"></span> Relatórios
+      </a>
+      <a routerLink="/settings" routerLinkActive="active" class="nav-item">
+        <span class="dot"></span> Configurações
+      </a>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="btn ghost" (click)="logout()">Sair</button>
+    </div>
+  </aside>
+
+  <main class="main">
+    <header class="topbar">
+      <button class="btn ghost" (click)="toggleSidebar()">☰</button>
+
+      <div class="search">
+        <input placeholder="Buscar paciente, exame, amostra..." />
+      </div>
+
+      <div class="right">
+        <div class="pill">Online</div>
+      </div>
+    </header>
+
+    <section class="content">
+      <router-outlet />
+    </section>
+  </main>
+</div>

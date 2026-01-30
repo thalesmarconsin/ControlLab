@@ -1,14 +1,27 @@
-/* Resetzinho leve */
+:root {
+  --bg: #0b1220;
+  --panel: rgba(17, 24, 39, 0.88);
+  --border: rgba(255,255,255,.10);
+  --text: #e5e7eb;
+  --muted: #9ca3af;
+  --brand: #60a5fa;
+  --good: #22c55e;
+  --warn: #f59e0b;
+  --bad: #ef4444;
+}
+
 * { box-sizing: border-box; }
 html, body { height: 100%; }
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-  background: #0b1220;
-  color: #e5e7eb;
+  background: var(--bg);
+  color: var(--text);
 }
 
-/* Layout */
+a { color: inherit; }
+button { font-family: inherit; }
+
 .page {
   min-height: 100vh;
   display: grid;
