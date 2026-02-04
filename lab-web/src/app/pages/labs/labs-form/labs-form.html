@@ -1,0 +1,48 @@
+<header class="head">
+  <div>
+    <h1>{{ id ? 'Editar laboratório' : 'Novo laboratório' }}</h1>
+    <p>Preencha os dados e salve.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn" routerLink="/labs">Voltar</a>
+  </div>
+</header>
+
+<section class="panel">
+  <div class="msg error" *ngIf="error">{{ error }}</div>
+  <div class="msg" *ngIf="loading">Carregando...</div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid">
+      <label>
+        <span>Nome *</span>
+        <input formControlName="name" placeholder="Ex: Lab 01" />
+        <small class="err" *ngIf="form.controls.name.touched && form.controls.name.invalid">
+          Nome é obrigatório (mínimo 2 caracteres).
+        </small>
+      </label>
+
+      <label>
+        <span>Local</span>
+        <input formControlName="location" placeholder="Ex: Bloco B - 2º andar" />
+      </label>
+
+      <label>
+        <span>Capacidade</span>
+        <input type="number" formControlName="capacity" />
+      </label>
+
+      <label class="check">
+        <input type="checkbox" formControlName="active" />
+        <span>Ativo</span>
+      </label>
+    </div>
+
+    <div class="footer">
+      <button class="btn primary" type="submit" [disabled]="loading">
+        {{ id ? 'Salvar alterações' : 'Criar laboratório' }}
+      </button>
+    </div>
+  </form>
+</section>

@@ -14,6 +14,12 @@ export const routes: Routes = [
     canActivate: [authGuard],
   },
 
+  { path: 'labs', loadComponent: () => import('./pages/labs/labs-list/labs-list').then(m => m.LabsList) },
+  { path: 'labs/new', loadComponent: () => import('./pages/labs/labs-form/labs-form').then(m => m.LabsForm) },
+  { path: 'labs/:id/edit', loadComponent: () => import('./pages/labs/labs-form/labs-form').then(m => m.LabsForm) },
+  
+
+
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' },
 ];

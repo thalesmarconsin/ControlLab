@@ -1,0 +1,52 @@
+<header class="head">
+  <div>
+    <h1>Laboratórios</h1>
+    <p>Gerencie salas, capacidade e status.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn primary" routerLink="/labs/new">+ Novo laboratório</a>
+    <button class="btn" (click)="refresh()">Atualizar</button>
+  </div>
+</header>
+
+<section class="panel">
+  <div class="table">
+    <div class="row head">
+      <div>Nome</div>
+      <div>Local</div>
+      <div>Capacidade</div>
+      <div>Status</div>
+      <div>PCs</div>
+      <div>Equip.</div>
+      <div>Ações</div>
+    </div>
+
+    <ng-container *ngIf="labs$ | async as labs; else loading">
+      <div class="row" *ngFor="let lab of labs">
+        <div class="strong">{{ lab.name }}</div>
+        <div class="muted">{{ lab.location || '—' }}</div>
+        <div>{{ lab.capacity }}</div>
+        <div>
+          <span class="badge" [class.good]="lab.active" [class.bad]="!lab.active">
+            {{ lab.active ? 'Ativo' : 'Inativo' }}
+          </span>
+        </div>
+        <div>{{ lab.computers_count ?? 0 }}</div>
+        <div>{{ lab.equipment_count ?? 0 }}</div>
+        <div class="buttons">
+          <a class="btn" [routerLink]="['/labs', lab.id, 'edit']">Editar</a>
+          <button class="btn danger" (click)="deleteLab(lab)">Excluir</button>
+        </div>
+      </div>
+
+      <div class="empty" *ngIf="labs.length === 0">
+        Nenhum laboratório cadastrado ainda.
+      </div>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="empty">Carregando...</div>
+    </ng-template>
+  </div>
+</section>
