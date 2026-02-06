@@ -1,0 +1,51 @@
+<header class="head">
+  <div>
+    <h1>Equipamentos</h1>
+    <p>Controle de periféricos e itens do laboratório.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn primary" routerLink="/equipments/new">+ Novo equipamento</a>
+    <button class="btn" (click)="refresh()">Atualizar</button>
+  </div>
+</header>
+
+<section class="panel">
+  <div class="table">
+    <div class="row head">
+      <div>Patrimônio</div>
+      <div>Tipo</div>
+      <div>Marca/Modelo</div>
+      <div>Laboratório</div>
+      <div>Status</div>
+      <div>Ações</div>
+    </div>
+
+    <ng-container *ngIf="equipments$ | async as list; else loading">
+      <div class="row" *ngFor="let e of list">
+        <div class="strong">{{ e.asset_tag }}</div>
+        <div>{{ e.type }}</div>
+        <div class="muted">{{ (e.brand || '—') + ' / ' + (e.model || '—') }}</div>
+        <div>{{ e.laboratory?.name || ('ID ' + e.laboratory_id) }}</div>
+        <div>
+          <span class="badge"
+                [class.good]="e.status === 'active'"
+                [class.warn]="e.status === 'maintenance'"
+                [class.bad]="e.status === 'retired'">
+            {{ statusLabel(e.status) }}
+          </span>
+        </div>
+        <div class="buttons">
+          <a class="btn" [routerLink]="['/equipments', e.id, 'edit']">Editar</a>
+          <button class="btn danger" (click)="deleteEquipment(e)">Excluir</button>
+        </div>
+      </div>
+
+      <div class="empty" *ngIf="list.length === 0">Nenhum equipamento cadastrado.</div>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="empty">Carregando...</div>
+    </ng-template>
+  </div>
+</section>

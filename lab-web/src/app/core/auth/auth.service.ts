@@ -8,6 +8,7 @@ type LoginResponse = { access_token: string; token_type: string; expires_in: num
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private readonly tokenKey = 'lab_token';
+  
 
   constructor(private http: HttpClient) {}
 
@@ -17,7 +18,6 @@ export class AuthService {
       .pipe(tap(res => localStorage.setItem(this.tokenKey, res.access_token)));
   }
 
-  // Register agora NÃO armazena token
   register(name: string, email: string, password: string) {
     return this.http.post(`${environment.apiUrl}/auth/register`, { name, email, password });
   }

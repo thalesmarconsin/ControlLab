@@ -3,47 +3,43 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreEquipmentRequest;
+use App\Http\Requests\UpdateEquipmentRequest;
+use App\Models\Equipment;
 
 class EquipmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        return Equipment::with('laboratory')
+            ->orderBy('type')
+            ->orderBy('asset_tag')
+            ->get();
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function store(StoreEquipmentRequest $request)
     {
-        //
+        $equipment = Equipment::create($request->validated());
+
+        return response()->json($equipment, 201);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
+    public function show(Equipment $equipment)
     {
-        //
+        return $equipment->load('laboratory');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
+    public function update(UpdateEquipmentRequest $request, Equipment $equipment)
     {
-        //
+        $equipment->update($request->validated());
+
+        return $equipment->fresh()->load('laboratory');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
+    public function destroy(Equipment $equipment)
     {
-        //
+        $equipment->delete();
+
+        return response()->noContent();
     }
 }

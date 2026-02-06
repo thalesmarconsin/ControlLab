@@ -1,0 +1,67 @@
+<header class="head">
+  <div>
+    <h1>{{ id ? 'Editar equipamento' : 'Novo equipamento' }}</h1>
+    <p>Cadastre periféricos e itens do laboratório.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn" routerLink="/equipments">Voltar</a>
+  </div>
+</header>
+
+<section class="panel">
+  <div class="msg error" *ngIf="error">{{ error }}</div>
+  <div class="msg" *ngIf="loading">Carregando...</div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid">
+      <label>
+        <span>Laboratório *</span>
+        <select formControlName="laboratory_id">
+          <option [ngValue]="null">Selecione...</option>
+          <option *ngFor="let lab of (labs$ | async)" [ngValue]="lab.id">
+            {{ lab.name }}
+          </option>
+        </select>
+      </label>
+
+      <label>
+        <span>Patrimônio *</span>
+        <input formControlName="asset_tag" placeholder="Ex: EQ-010" />
+      </label>
+
+      <label>
+        <span>Tipo *</span>
+        <input formControlName="type" placeholder="Ex: Monitor" />
+      </label>
+
+      <label>
+        <span>Status *</span>
+        <select formControlName="status">
+          <option *ngFor="let s of statuses" [value]="s.value">{{ s.label }}</option>
+        </select>
+      </label>
+
+      <label>
+        <span>Marca</span>
+        <input formControlName="brand" placeholder="Ex: Dell" />
+      </label>
+
+      <label>
+        <span>Modelo</span>
+        <input formControlName="model" placeholder="Ex: P2419H" />
+      </label>
+
+      <label class="full">
+        <span>Observações</span>
+        <textarea formControlName="notes" rows="3"></textarea>
+      </label>
+    </div>
+
+    <div class="footer">
+      <button class="btn primary" type="submit" [disabled]="loading">
+        {{ id ? 'Salvar alterações' : 'Cadastrar equipamento' }}
+      </button>
+    </div>
+  </form>
+</section>

@@ -11,6 +11,7 @@ export const routes: Routes = [
   {
     path: 'dashboard',
     component: DashboardComponent,
+
     canActivate: [authGuard],
   },
 
@@ -18,8 +19,16 @@ export const routes: Routes = [
   { path: 'labs/new', loadComponent: () => import('./pages/labs/labs-form/labs-form').then(m => m.LabsForm) },
   { path: 'labs/:id/edit', loadComponent: () => import('./pages/labs/labs-form/labs-form').then(m => m.LabsForm) },
   
+  { path: 'computers', loadComponent: () => import('./pages/computers/computers-list/computers-list').then(m => m.ComputersList) },
+  { path: 'computers/new', loadComponent: () => import('./pages/computers/computers-form/computers-form').then(m => m.ComputersForm) },
+  { path: 'computers/:id/edit', loadComponent: () => import('./pages/computers/computers-form/computers-form').then(m => m.ComputersForm) },
+
+  { path: 'equipment', loadComponent: () => import('./pages/equipments/equipments-list/equipments-list').then(m => m.EquipmentsList) },
+  { path: 'equipment/new', loadComponent: () => import('./pages/equipments/equipments-form/equipments-form').then(m => m.EquipmentsForm) },
+  { path: 'equipment/:id/edit', loadComponent: () => import('./pages/equipments/equipments-form/equipments-form').then(m => m.EquipmentsForm) },
 
 
+  
   { path: '', redirectTo: 'login', pathMatch: 'full' },
   { path: '**', redirectTo: 'dashboard' },
 ];

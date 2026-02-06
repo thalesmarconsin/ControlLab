@@ -1,0 +1,83 @@
+<header class="head">
+  <div>
+    <h1>{{ id ? 'Editar computador' : 'Novo computador' }}</h1>
+    <p>Patrimônio e configuração do PC.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn" routerLink="/computers">Voltar</a>
+  </div>
+</header>
+
+<section class="panel">
+  <div class="msg error" *ngIf="error">{{ error }}</div>
+  <div class="msg" *ngIf="loading">Carregando...</div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()">
+    <div class="grid">
+      <label>
+        <span>Laboratório *</span>
+        <select formControlName="laboratory_id">
+          <option [ngValue]="null">Selecione...</option>
+          <option *ngFor="let lab of (labs$ | async)" [ngValue]="lab.id">
+            {{ lab.name }}
+          </option>
+        </select>
+        <small class="err" *ngIf="form.controls.laboratory_id.touched && form.controls.laboratory_id.invalid">
+          Selecione um laboratório.
+        </small>
+      </label>
+
+      <label>
+        <span>Patrimônio *</span>
+        <input formControlName="asset_tag" placeholder="Ex: PC-001" />
+        <small class="err" *ngIf="form.controls.asset_tag.touched && form.controls.asset_tag.invalid">
+          Patrimônio é obrigatório.
+        </small>
+      </label>
+
+      <label>
+        <span>Hostname</span>
+        <input formControlName="hostname" placeholder="Ex: LAB01-PC001" />
+      </label>
+
+      <label>
+        <span>Status *</span>
+        <select formControlName="status">
+          <option *ngFor="let s of statuses" [value]="s.value">{{ s.label }}</option>
+        </select>
+      </label>
+
+      <label>
+        <span>CPU</span>
+        <input formControlName="cpu" placeholder="Ex: i5 10th" />
+      </label>
+
+      <label>
+        <span>RAM (GB)</span>
+        <input type="number" formControlName="ram_gb" />
+      </label>
+
+      <label>
+        <span>Armazenamento (GB)</span>
+        <input type="number" formControlName="storage_gb" />
+      </label>
+
+      <label>
+        <span>Sistema Operacional</span>
+        <input formControlName="os" placeholder="Ex: Windows 11 / Ubuntu" />
+      </label>
+
+      <label class="full">
+        <span>Observações</span>
+        <textarea formControlName="notes" rows="3"></textarea>
+      </label>
+    </div>
+
+    <div class="footer">
+      <button class="btn primary" type="submit" [disabled]="loading">
+        {{ id ? 'Salvar alterações' : 'Cadastrar computador' }}
+      </button>
+    </div>
+  </form>
+</section>

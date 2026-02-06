@@ -1,0 +1,11 @@
+/* igual ao labs-list, só muda a grid */
+.row {
+  display: grid;
+  grid-template-columns: 140px 1fr 1fr 140px 220px;
+  gap: 10px;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.06);
+  background: rgba(3, 7, 18, 0.35);
+  align-items: center;
+}

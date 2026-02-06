@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('laboratory_id')->constrained()->cascadeOnDelete();
 
             $table->string('asset_tag')->unique();
-            $table->string('type');   // monitor, projetor...
+            $table->string('type');   
             $table->string('brand')->nullable();
             $table->string('model')->nullable();
 

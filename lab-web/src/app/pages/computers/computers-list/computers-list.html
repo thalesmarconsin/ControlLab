@@ -1,0 +1,49 @@
+<header class="head">
+  <div>
+    <h1>Computadores</h1>
+    <p>Controle de patrimônio, status e laboratório.</p>
+  </div>
+
+  <div class="actions">
+    <a class="btn primary" routerLink="/computers/new">+ Novo computador</a>
+    <button class="btn" (click)="refresh()">Atualizar</button>
+  </div>
+</header>
+
+<section class="panel">
+  <div class="table">
+    <div class="row head">
+      <div>Patrimônio</div>
+      <div>Hostname</div>
+      <div>Laboratório</div>
+      <div>Status</div>
+      <div>Ações</div>
+    </div>
+
+    <ng-container *ngIf="computers$ | async as list; else loading">
+      <div class="row" *ngFor="let c of list">
+        <div class="strong">{{ c.asset_tag }}</div>
+        <div class="muted">{{ c.hostname || '—' }}</div>
+        <div>{{ c.laboratory?.name || ('ID ' + c.laboratory_id) }}</div>
+        <div>
+          <span class="badge"
+                [class.good]="c.status === 'active'"
+                [class.warn]="c.status === 'maintenance'"
+                [class.bad]="c.status === 'retired'">
+            {{ statusLabel(c.status) }}
+          </span>
+        </div>
+        <div class="buttons">
+          <a class="btn" [routerLink]="['/computers', c.id, 'edit']">Editar</a>
+          <button class="btn danger" (click)="deleteComputer(c)">Excluir</button>
+        </div>
+      </div>
+
+      <div class="empty" *ngIf="list.length === 0">Nenhum computador cadastrado.</div>
+    </ng-container>
+
+    <ng-template #loading>
+      <div class="empty">Carregando...</div>
+    </ng-template>
+  </div>
+</section>
