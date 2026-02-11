@@ -12,8 +12,16 @@ class Equipment extends Model
         'type',
         'brand',
         'model',
+        'serial number',
         'status',
+        'purchase_date',
+        'purchase_value',
         'notes',
+    ];
+
+    protected $casts = [
+        'purchase_date' => 'date',
+        'purchase_value' => 'decimal:2',
     ];
 
     public function laboratory() { return $this->belongsTo(Laboratory::class); }

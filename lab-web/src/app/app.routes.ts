@@ -23,9 +23,9 @@ export const routes: Routes = [
   { path: 'computers/new', loadComponent: () => import('./pages/computers/computers-form/computers-form').then(m => m.ComputersForm) },
   { path: 'computers/:id/edit', loadComponent: () => import('./pages/computers/computers-form/computers-form').then(m => m.ComputersForm) },
 
-  { path: 'equipment', loadComponent: () => import('./pages/equipments/equipments-list/equipments-list').then(m => m.EquipmentsList) },
-  { path: 'equipment/new', loadComponent: () => import('./pages/equipments/equipments-form/equipments-form').then(m => m.EquipmentsForm) },
-  { path: 'equipment/:id/edit', loadComponent: () => import('./pages/equipments/equipments-form/equipments-form').then(m => m.EquipmentsForm) },
+  { path: 'equipments', loadComponent: () => import('./pages/equipments/equipments-list/equipments-list').then(m => m.EquipmentsList) },
+  { path: 'equipments/new', loadComponent: () => import('./pages/equipments/equipments-form/equipments-form').then(m => m.EquipmentsForm) },
+  { path: 'equipments/:id/edit', loadComponent: () => import('./pages/equipments/equipments-form/equipments-form').then(m => m.EquipmentsForm) },
 
 
   

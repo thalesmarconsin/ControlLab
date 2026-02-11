@@ -1,17 +1,65 @@
-# Node / Angular
-lab-web/node_modules
-lab-web/dist
-lab-web/.angular
-lab-web/.vscode
-
-# Laravel / PHP
-lab-api/vendor
-lab-api/.env
-lab-api/storage/*.key
-lab-api/storage/logs
-lab-api/storage/framework
-lab-api/bootstrap/cache
-
-# Geral
-.env
+# =========================
+# Global / OS / Editors
+# =========================
 .DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+*.swo
+
+*.sqlite*
+
+
+# Env (monorepo)
+.env
+lab-api/.env
+lab-web/.env
+lab-web/.env.*.local
+
+# Logs
+*.log
+
+# Node
+node_modules/
+lab-api/node_modules/
+lab-web/node_modules/
+
+
+# =========================
+# Angular / Node (lab-web)
+# =========================
+lab-web/node_modules/
+lab-web/dist/
+lab-web/.angular/
+lab-web/.cache/
+lab-web/coverage/
+lab-web/.turbo/
+lab-web/.nx/
+lab-web/npm-debug.log*
+lab-web/yarn-debug.log*
+lab-web/yarn-error.log*
+lab-web/pnpm-debug.log*
+
+# =========================
+# Laravel / PHP (lab-api)
+# =========================
+lab-api/vendor/
+
+# Laravel cache / runtime
+lab-api/storage/*.key
+lab-api/storage/app/public/
+lab-api/storage/framework/
+lab-api/storage/logs/
+lab-api/bootstrap/cache/
+
+# PHPUnit / Pest cache
+lab-api/.phpunit.result.cache
+
+# Composer
+lab-api/composer.lock
+
+# =========================
+# If you use these locally
+# =========================
+lab-api/public/storage
